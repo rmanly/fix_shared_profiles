@@ -1,15 +1,15 @@
-Right now this will sometimes flip the "top" of the file with the bottom. This doesn't matter for the functionality of the configuration profile but it will make it somewhat harder to read.
+Why you need this.
 
-I don't know if it has to do with the fact that python dictionaries are unordered or what. Will investigate more later.
+```
+$ git clone https://github.com/nmcspadden/Profiles.git
+$ cd Profiles
+$ sed -i '' 's/org\.sacredsf/org\.glenbrook225/' ./*.mobileconfig
+```
 
+But what about the UUIDs?
 
+`$ ./fix_shared_profiles.py ./*.mobileconfig`
 
-usage: fix_shared_profiles.py [-h] file [file ...]
+There are two pitfalls identified at the end of this post.
 
-Generate new uuids for shared configuration profiles.
-
-positional arguments:
-  file        one or more configuration profiles
-
-optional arguments:
-  -h, --help  show this help message and exit
+http://rmanly.blogspot.com/2015/07/making-shared-configuration-profiles.html
