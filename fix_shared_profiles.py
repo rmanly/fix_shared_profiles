@@ -45,7 +45,7 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description='Generate new uuids for shared configuration profiles.')
     parser.add_argument('file', help='One or more configuration profiles to modify.', nargs='+')
-    parser.add_argument('-org', help='New string for PayloadOrganization key.')
+    parser.add_argument('-org', help='New string for PayloadOrganization key.', metavar='Organization')
     args = parser.parse_args()
 
     for file in args.file:
