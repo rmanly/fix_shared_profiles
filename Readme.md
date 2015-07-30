@@ -1,9 +1,15 @@
-usage: fix_shared_profiles.py [-h] file [file ...]
+Why you need this.
 
-Generate new uuids for shared configuration profiles.
+```
+$ git clone https://github.com/nmcspadden/Profiles.git
+$ cd Profiles
+$ sed -i '' 's/org\.sacredsf/org\.glenbrook225/' ./*.mobileconfig
+```
 
-positional arguments:
-  file        one or more configuration profiles
+But what about the UUIDs?
 
-optional arguments:
-  -h, --help  show this help message and exit
+`$ ./fix_shared_profiles.py ./*.mobileconfig`
+
+There are two pitfalls identified at the end of this post.
+
+http://rmanly.blogspot.com/2015/07/making-shared-configuration-profiles.html
