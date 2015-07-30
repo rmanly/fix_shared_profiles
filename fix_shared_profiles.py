@@ -18,21 +18,22 @@ def fix_top_level(profile):
 
 
 def fix_content_level(content):
-    '''
-    fix_content_level(list) -> list
-
-    Return a modified list with new uuids for use in PayloadContent section
-    of a configuration profile.
-    '''
     for payload in content:
         payload['PayloadUUID'] = new_uuid()
     return content
+
+
+def change_payloadorg(org, profile):
+    profile['PayloadOrganization'] = org
+    return profile
 
 
 def fix_profile(file):
     profile = read_profile(file)
     profile['PayloadContent'] = fix_content_level(profile['PayloadContent'])
     new_profile = fix_top_level(profile)
+    if args.org:
+       change_payloadorg(args.org, new_profile)
     write_new(new_profile, file)
 
 
@@ -43,8 +44,10 @@ def write_new(profile, filename):
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description='Generate new uuids for shared configuration profiles.')
-    parser.add_argument('file', help='one or more configuration profiles', nargs='+')
+    parser.add_argument('file', help='One or more configuration profiles to modify.', nargs='+')
+    parser.add_argument('-org', help='New string for PayloadOrganization key.')
     args = parser.parse_args()
 
     for file in args.file:
-       fix_profile(file) 
+        fix_profile(file)
+
