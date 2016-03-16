@@ -4,16 +4,9 @@ import argparse
 import plistlib
 from Foundation import NSUUID
 
-def new_uuid():
-    return NSUUID.UUID().UUIDString().lower().encode('ascii', 'ignore')
 
-
-def read_profile(filename):
-    return plistlib.readPlist(filename)
-
-
-def fix_top_level(profile):
-    profile['PayloadUUID'] = new_uuid()
+def change_payloadorg(org, profile):
+    profile['PayloadOrganization'] = org
     return profile
 
 
@@ -23,11 +16,6 @@ def fix_content_level(content):
     return content
 
 
-def change_payloadorg(org, profile):
-    profile['PayloadOrganization'] = org
-    return profile
-
-
 def fix_profile(file):
     profile = read_profile(file)
     profile['PayloadContent'] = fix_content_level(profile['PayloadContent'])
@@ -35,6 +23,19 @@ def fix_profile(file):
     if args.org:
        change_payloadorg(args.org, new_profile)
     write_new(new_profile, file)
+
+
+def fix_top_level(profile):
+    profile['PayloadUUID'] = new_uuid()
+    return profile
+
+
+def new_uuid():
+    return NSUUID.UUID().UUIDString().lower().encode('ascii', 'ignore')
+
+
+def read_profile(filename):
+    return plistlib.readPlist(filename)
 
 
 def write_new(profile, filename):
